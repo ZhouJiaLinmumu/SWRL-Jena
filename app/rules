@@ -1,3 +1,3 @@
-@prefix ont: <http://www.semanticweb.org/pauloroberto/ontologies/2017/10/untitled-ontology-17#>.
+@prefix ont: <http://www.semanticweb.org/mate85#>.
 
 [rule1: (?c rdf:type ont:Cliente) (?c ont:temContaBancaria ?x ) (?x ont:saldoAtual ?saldo) lessThan(?saldo, 0) ge(?saldo, -2000) (ont:EmprestimoLight ont:valorContratado ?vc) sum(?vc, ?saldo, ?total) now(?dataAtual) -> (?x ont:contratarEmprestimo ont:EmprestimoLight) (?x ont:comChequeEspecial ?saldo) (?x ont:saldoAtual ?total) (?x ont:dataContratoEmprestimo ?dataAtual)]

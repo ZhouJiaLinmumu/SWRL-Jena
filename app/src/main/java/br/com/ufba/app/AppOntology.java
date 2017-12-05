@@ -79,8 +79,6 @@ public class AppOntology {
 		}
 	}
 
-	
-
 	private void printInferenceFromModel(Model model) {
 		StmtIterator stmts = model.listStatements(null, (ObjectProperty) null, (RDFNode) null);
 

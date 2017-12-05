@@ -27,8 +27,6 @@ public class AppStart {
 		org.apache.log4j.Logger.getRootLogger().setLevel(org.apache.log4j.Level.OFF);
 
 		showMenu();
-		
-		reasoner.setDerivationLogging(true);
 
 		final OntModel ontModel = appOntology.getOntologyModel();
 
@@ -48,7 +46,7 @@ public class AppStart {
 		appOntology.printFactsFromIndividual(conta0003);
 
 		System.out.println("---------------------------------Inference-----------------------------------------------");
-		appOntology.printInferenceFromModel(inf, conta0003);
+		appOntology.printInference(inf);
 
 		// appOntology.exportOwlInference(inf);
 	}
@@ -61,7 +59,7 @@ public class AppStart {
 		char option = JOptionPane.showInputDialog(null, menu, "MENU", JOptionPane.PLAIN_MESSAGE).charAt(0);
 
 		appOntology = new AppOntology("/SWRLAulaWithRules.owl");
-		
+
 		switch (option) {
 		case '1': {
 			rules = readRulesFileTxt();
@@ -86,11 +84,11 @@ public class AppStart {
 	}
 
 	public static List<Rule> readRulesInline() {
-		String rules = "[rule1: (?c rdf:type " + NS + "Cliente) " + "(?c " + NS + "temContaBancaria ?x ) " + "(?x " + NS
-				+ "saldoAtual ?saldo) " + "lessThan(?saldo, 0) " + "ge(?saldo, -2000) (EmprestimoLight valorContratado ?vc)" + "sum(?vc, ?saldo, ?total) "
-				+ "now(?dataAtual) -> " + "(?x " + NS + "contratarEmprestimo 5000) " + "(?x " + NS
-				+ "entrouChequeEspecial ?saldo) " + "(?x " + NS + "saldoAtual ?total) " + "(?x " + NS
-				+ "dataContratoEmprestimo ?dataAtual)]";
+		String rules = "[rule1: (?c rdf:type " + NS + "Cliente)" + " (?c " + NS + "temContaBancaria ?x ) " + "(?x " + NS
+				+ "saldoAtual ?saldo) " + "lessThan(?saldo, 0) ge(?saldo, -2000) " + "(" + NS + "EmprestimoLight " + NS
+				+ "valorContratado ?vc) " + "sum(?vc, ?saldo, ?total) now(?dataAtual) -> " + "(?x " + NS
+				+ "contratarEmprestimo " + NS + "EmprestimoLight) " + "(?x " + NS + "comChequeEspecial ?saldo) (?x "
+				+ NS + "saldoAtual ?total) " + "(?x " + NS + "dataContratoEmprestimo ?dataAtual)]";
 		return Rule.parseRules(rules);
 	}
 }
